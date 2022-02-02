@@ -13,4 +13,6 @@ public interface UserMapper {
     List<User> findAll();
 
     void userAdd(User user);
+
+    User login(User user);
 }

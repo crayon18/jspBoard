@@ -14,10 +14,6 @@
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
             <span class="fs-4">jsp 게시판</span>
           </a>
-
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link" aria-current="page">글쓰기</a></li>
-          </ul>
         </header>
 
         <div class="row justify-content-center">

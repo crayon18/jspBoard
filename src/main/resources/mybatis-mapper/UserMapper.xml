@@ -8,6 +8,14 @@
     </select>
 
     <insert id="userAdd">
-        INSERT user (mb_id, mb_pw) VALUES (#{mb_id}, #{mb_pw})
+        INSERT user (mb_id, mb_pw)
+        VALUES (#{mb_id}, #{mb_pw})
     </insert>
+
+    <select id="login" resultType="User">
+        SELECT mb_id, mb_pw
+            FROM user
+                WHERE mb_id = #{mb_id}
+                    AND mb_pw = #{mb_pw}
+    </select>
 </mapper>
