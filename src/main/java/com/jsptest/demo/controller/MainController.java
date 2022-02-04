@@ -17,9 +17,7 @@ public class MainController {
     public String home(HttpServletRequest request, Model model){
 
         HttpSession session = request.getSession();
-
-        System.out.println(session.getId());
-
+        
         return "home";
     }
 }

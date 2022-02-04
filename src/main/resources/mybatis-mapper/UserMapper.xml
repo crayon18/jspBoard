@@ -18,4 +18,5 @@
                 WHERE mb_id = #{mb_id}
                     AND mb_pw = #{mb_pw}
     </select>
+
 </mapper>

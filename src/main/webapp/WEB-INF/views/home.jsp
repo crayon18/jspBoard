@@ -18,7 +18,16 @@
 
           <ul class="nav nav-pills">
 
-          <p>${loginMember.mb_id}ㅎㅇ</p>
+          <c:if test="${loginMember != null }">
+          <a class="btn btn-white btn-lg text-black" style="margin: 0 10px" role="button"
+                             aria-disabled="false" href="/board-write">글쓰기</a>
+          </c:if>
+
+            <form name="loginForm" method="get" action="/login">
+               <c:if test="${loginMember == null }">
+                  <button type="submit">로그인</button>
+               </c:if>
+             </form>
 
              <form name="logoutForm" method="post" action="/logout">
                 <c:if test="${loginMember != null }">
