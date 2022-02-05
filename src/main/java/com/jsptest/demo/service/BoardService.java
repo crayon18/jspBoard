@@ -21,4 +21,9 @@ public class BoardService {
         board.setWriter(user.getMb_id());
         boardMapper.boardAdd(board);
     }
+
+    public Board findBoardNumber(Long id){
+        Board board = boardMapper.findBoard(id);
+        return board;
+    }
 }

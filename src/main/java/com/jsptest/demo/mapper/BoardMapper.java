@@ -11,6 +11,10 @@ import java.util.List;
 @Repository
 public interface BoardMapper {
 
+    List<Board> findBoardAll();
+
     void boardAdd(Board board);
+
+    Board findBoard(Long id);
 
 }

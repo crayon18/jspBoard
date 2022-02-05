@@ -35,9 +35,32 @@
                 </c:if>
              </form>
 
-          </ul>
+              </ul>
         </header>
-
     </div>
+
+
+    <div class="container">
+    <table class="table">
+                   <thead>
+                     <tr>
+                       <th scope="col">번호</th>
+                       <th scope="col">제목</th>
+                       <th scope="col">게시일</th>
+                       <th scope="col">작성자</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                   <c:forEach items="${list}" var="list">
+                     <tr>
+                       <th scope="row">${list.id}</th>
+                       <td><a href="board-read/${list.id}">${list.title}</a></td>
+                       <td>${list.create_time}</td>
+                       <td>${list.writer}</td>
+                     </tr>
+                   </c:forEach>
+                   </tbody>
+                 </table>
+            </div>
 </body>
 </html>

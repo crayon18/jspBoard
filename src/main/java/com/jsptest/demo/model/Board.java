@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Data
 public class Board {
 
+    private Long id;
+
     private String title;
 
     private String contents;

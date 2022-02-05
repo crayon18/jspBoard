@@ -4,9 +4,20 @@
 
 <mapper namespace="com.jsptest.demo.mapper.BoardMapper">
 
+    <select id="findBoardAll" resultType="Board">
+        SELECT * FROM board_list;
+    </select>
+
     <insert id="boardAdd">
         INSERT board_list (title, contents, writer, create_time)
         VALUES (#{title}, #{contents}, #{writer}, #{create_time})
     </insert>
+
+    <select id="findBoard" resultType="Board">
+        SELECT *
+        FROM board_list
+        WHERE id = #{id}
+    </select>
+
 
 </mapper>
