@@ -5,9 +5,17 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
     <div class="container">
 
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
@@ -26,113 +34,52 @@
 
 <div class="container">
         <label for="content">comment</label>
-        <form name="commentInsertForm">
+        <form>
             <div class="input-group">
                <input type="hidden" name="id" value="${list.id}"/>
                <input type="text" class="form-control" id="contents" name="contents" placeholder="내용을 입력하세요.">
-               <span class="input-group-btn">
-                    <button id="btnComment" type="button" onclick="commentInsert()">등록</button>
-               </span>
+
+               <button id="replyRegist" type="button" class="btn btn-danger replyRegist">등록</button>
+
               </div>
         </form>
     </div>
 
-    <div class="container">
-        <div class="commentList"></div>
-    </div>
+    <a href="javascript:void(0);" class='test'>test</a>
+    <div class='hidden'>TEST Hidden Box</div>
+
 </div>
 </div>
 
 <script>
-
-var bno = '${list.id}';
-
-
-function commentList(){
-    $.ajax({
-        url : '/comment/list',
-        type : 'get',
-        data : {'bno':bno},
-        success : function(data){
-            var a ='';
-            $.each(data, function(key, value){
-                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                a += '<div class="commentInfo'+value.cno+'">'+'댓글번호 : '+value.cno+' / 작성자 : '+value.writer;
-                a += '<a onclick="commentUpdate('+value.cno+',\''+value.content+'\');"> 수정 </a>';
-                a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a> </div>';
-                a += '<div class="commentContent'+value.cno+'"> <p> 내용 : '+value.content +'</p>';
-                a += '</div></div>';
-            });
-
-            $(".commentList").html(a);
-        }
-    });
-}
-
-
-function commentInsert(insertData){
-    $.ajax({
-        url : '/comment/insert',
-        type : 'post',
-        data : ${"#commentInsertForm"}.serialize(),
-        success : function(data){
-            if(data == "success") {
-                commentList();
-                $("#commentInsertForm").val('');
-            }
-        }
-    });
-}
-
-//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
-function commentUpdate(cno, content){
-    var a ='';
-
-    a += '<div class="input-group">';
-    a += '<input type="text" class="form-control" name="content_'+cno+'" value="'+content+'"/>';
-    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cno+');">수정</button> </span>';
-    a += '</div>';
-
-    $('.commentContent'+cno).html(a);
-
-}
-
-//댓글 수정
-function commentUpdateProc(cno){
-    var updateContent = $('[name=content_'+cno+']').val();
-
-    $.ajax({
-        url : '/comment/update',
-        type : 'post',
-        data : {'content' : updateContent, 'cno' : cno},
-        success : function(data){
-            if(data == 1) commentList(bno); //댓글 수정후 목록 출력
-        }
-    });
-}
-
-//댓글 삭제
-function commentDelete(cno){
-    $.ajax({
-        url : '/comment/delete/'+cno,
-        type : 'post',
-        success : function(data){
-            if(data == 1) commentList(bno); //댓글 삭제후 목록 출력
-        }
-    });
-}
-
-
-
-
 $(document).ready(function(){
-    commentList(); //페이지 로딩시 댓글 목록 출력
-});
+  $(document).on("click",".replyRegist", function(){
+            $(".hidden").fadeToggle('fast');
+
+                    var bno = "${list.id}" // 글번호
+    				var reply = $("#contents").val();
+
+                 $.ajax({
+                    type : "post",
+                    url : "/comment/insert",
+                    datatype : "json",
+                    contentType : "application/json; charset=UTF-8",
+                    data : JSON.stringify({"bno": bno, "reply" : reply}),
+                    success : function(data){
+                        if(data == 1){ // 성공
+                            $("#reply").val("");
+
+                        } else { // 실패
+                            alert("등록 실패입니다. 다시 시도하세요");
+                        }
+                    },
+                    error : function(status, error){
+                    	alert("등록 실패입니다. 잠시 후에 다시 시도하세요");
+                    }
 
 
-
-</script>
-
-
+                   });
+            });
+	</script>
 </body>
 </html>

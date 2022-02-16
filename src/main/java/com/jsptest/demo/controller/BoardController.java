@@ -48,19 +48,4 @@ public class BoardController {
 
         return "read";
     }
-
-    @PostMapping("/comment/insert")
-    public String commentInsert(@RequestParam Long id, @RequestParam String contents, HttpServletRequest request, Comment comment){
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        try {
-            commentService.insertComment(comment,user);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return "success";
-    }
 }
